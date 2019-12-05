@@ -1,0 +1,39 @@
+{
+  "name": "turia_football",
+  "version": "1.0.0",
+  "description": "My sublime Nuxt.js project",
+  "author": "Andrea Rocca",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0",
+    "cookieparser": "^0.1.0",
+    "core-js": "^2.0.0",
+    "firebase": "^7.5.0",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
+    "nuxt": "^2.0.0",
+    "nuxt-fire": "^3.0.3",
+    "nuxt-stripe-module": "^2.0.0",
+    "vue-stripe-checkout": "^3.0.0-beta.11",
+    "vue-stripe-elements-plus": "^0.3.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "node-sass": "^4.13.0",
+    "prettier": "^1.16.4",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.0"
+  }
+}
