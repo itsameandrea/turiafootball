@@ -10,6 +10,7 @@ import HeroSection from '@/components/HeroSection'
 
 export default {
   components: { HeroSection },
+  middleware: 'redirectIfAuthenticated',
   computed: {
     user() {
       return this.$store.getters['users/currentUser']
