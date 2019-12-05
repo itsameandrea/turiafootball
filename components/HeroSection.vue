@@ -10,7 +10,13 @@
       b-col
         h2 {{ subtitle }}
     b-row
-      b-col.d-flex.flex-column
+      b-col.d-flex.flex-column(v-if="user")
+        b-button.mt-3(
+          variant="primary"
+          size="lg"
+          to="/games"
+        ) All Games
+      b-col.d-flex.flex-column(v-else)
         b-button.mt-3(
           variant="primary"
           size="lg"
@@ -36,6 +42,11 @@ export default {
     subtitle: {
       type: String,
       default: ''
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.getters['users/currentUser']
     }
   }
 }
