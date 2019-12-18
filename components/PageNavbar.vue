@@ -8,7 +8,7 @@
         b-nav-item(
           v-for="link in links"
           :key="link.urk"
-          :href="link.url"
+          :to="link.url"
         ) {{ link.label }}
       b-nav-item-dropdown(
         v-if="user"
