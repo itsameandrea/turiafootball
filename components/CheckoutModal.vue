@@ -1,11 +1,22 @@
 <template lang="pug">
   b-modal(
     :visible="visible"
-    @ok.prevent="onProcessPurchase"
   )
     b-container(ref="checkout_form")
+    template(slot="modal-footer")
+      .d-flex.justify-content.flex-end
+        b-button.mr-2(
+          @click="$emit('close')"
+        ) Cancel
+        async-button(
+          variant="primary"
+          :is-loading="isLoading"
+          @click.prevent="onProcessPurchase"
+        ) Pay
 </template>
 <script>
+import AsyncButton from '@/components/AsyncButton'
+
 export default {
   name: 'CheckoutModal',
   props: {
@@ -14,10 +25,14 @@ export default {
       default: false
     }
   },
+  components: {
+    AsyncButton
+  },
   data() {
     return {
       stripe: null,
-      card: null
+      card: null,
+      isLoading: false
     }
   },
   watch: {
@@ -43,16 +58,16 @@ export default {
       }
     },
     async onProcessPurchase() {
-      const result = await this.stripe.createToken(this.card)
+      this.isLoading = true
 
-      console.log('Processing the payment...')
+      const result = await this.stripe.createToken(this.card)
 
       if (result.error) {
         this.toastError('Something went wrong with the payment...')
       }
-      
       // trigger firebase callable function passing the charge
       this.$emit('paid', result.token.id)
+      this.isLoading = false
     }
   }
 }

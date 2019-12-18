@@ -1,6 +1,10 @@
 <template lang="pug">
   b-container.mt-5(v-if="game")
-    checkout-modal(:visible="showCheckout" @paid="onPaid")
+    checkout-modal(
+      :visible="showCheckout"
+      @close="showCheckout = false"
+      @paid="onPaid"
+    )
     b-row
       b-col(xs="12" md="6")
         game-card(

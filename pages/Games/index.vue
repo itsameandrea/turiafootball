@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  b-container.my-5
     game-card(
       v-for="(game, index) in games"
       :key="index"
@@ -24,6 +24,9 @@ export default {
     games() {
       return this.$store.getters['games/games']
     }
+  },
+  async created() {
+    await this.$store.dispatch('games/getGames')
   }
 }
 </script>
