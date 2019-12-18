@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import cookieParser from 'cookieparser'
+import Cookies from 'js-cookie'
 
 export const getUserFromCookie = (req) => {
   if (process.server && process.static) return

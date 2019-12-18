@@ -1,21 +1,25 @@
 <template lang="pug">
   div
-    b-row.shadow.py-4.my-3.rounded-sm.cursor-pointer(
+    game-card(
       v-for="(game, index) in games"
       :key="index"
-      @click="$router.replace(`/games/${index}`)"
+      :game="game"
+      @click.native="$router.push(`/games/${index}`)"
     )
-      b-col {{ game.name }}
-      b-col {{ game.location }}
-      b-col {{ game.playersCount }}
-    b-row.shadow.py-4.my-3.rounded-sm.cursor-pointer.d-flex.justify-content-center(
-      @click="$router.replace(`/games/new`)"
+    b-button.shadow.w-100.bg(
+      variant="primary"
+      @click="$router.push(`/games/new`)"
     ) Create game
 </template>
 <script>
+import GameCard from '@/components/GameCard'
+
 export default {
   name: 'GamesPage',
   middleware: 'redirectIfNotAuthenticated',
+  components: {
+    GameCard
+  },
   computed: {
     games() {
       return this.$store.getters['games/games']

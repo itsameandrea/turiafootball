@@ -1,31 +1,31 @@
 <template lang="pug">
-  .shadow.p-5
-    h1 Login to your account
-    b-form(
-      @submit.prevent="onSubmit"
-    )
-      b-form-group(
-        label="Email"
-      )
-        b-form-input(
-          v-model="form.email"
-          type="email"
-          required
-          placeholder="Enter email"
+  .d-flex.flex-column.align-items-center.h-100
+        h3.py-3 Login
+        b-form(
+          @submit.prevent="onSubmit"
         )
-      b-form-group(
-        label="Password"
-      )
-        b-form-input(
-          v-model="form.password"
-          type="password"
-          required
-          placeholder="Enter password"
-        )
-      b-button(
-        type="submit"
-        variant="success"
-      ) Submit
+          b-input-group(
+            class="mb-3"
+            prepend="Email"
+          )
+            b-form-input(
+              v-model="form.email"
+              type="email"
+              placeholder="john@smith.com"
+            )
+          b-input-group(
+            class="mb-3"
+            prepend="Password"
+          )
+            b-form-input(
+              v-model="form.password"
+              type="password"
+              placeholder="*****"
+            )
+          b-button.w-100(
+            type="submit"
+            variant="primary"
+          ) Submit
 </template>
 <script>
 export default {
@@ -39,7 +39,18 @@ export default {
       }
     }
   },
-
+  computed: {
+    user() {
+      return this.$store.getters['users/currentUser']
+    }
+  },
+  watch: {
+    user(val) {
+      if (val) {
+        this.$router.replace('/games')
+      }
+    }
+  },
   methods: {
     async onSubmit() {
       try {
@@ -47,7 +58,7 @@ export default {
         this.$router.replace('/games')
         this.toastSuccess('Logged in!')
       } catch (error) {
-        this.toastError('Error while creating logging you in')
+        this.toastError('Error while logging you in')
       }
     }
   }

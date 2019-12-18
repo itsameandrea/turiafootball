@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { longStackSupport } from 'q'
 
 export const state = () => ({
 
@@ -41,6 +42,18 @@ export const actions = {
         dispatch('users/getCurrentUser', { user }, { root: true })
 
         resolve(user.uid)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  async logout({ commit }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.$fireAuth.signOut()
+        Cookies.remove('access_token')
+        commit('users/logout', {}, { root: true })
+        resolve()
       } catch (error) {
         reject(error)
       }

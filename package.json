@@ -19,13 +19,18 @@
     "cookieparser": "^0.1.0",
     "core-js": "^2.0.0",
     "firebase": "^7.5.0",
+    "flatpickr": "^4.6.3",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.0.0",
     "nuxt-fire": "^3.0.3",
     "nuxt-stripe-module": "^2.0.0",
+    "vue": "2.6.11",
+    "vue-flatpickr-component": "^8.1.5",
+    "vue-server-renderer": "2.6.11",
     "vue-stripe-checkout": "^3.0.0-beta.11",
-    "vue-stripe-elements-plus": "^0.3.2"
+    "vue-stripe-elements-plus": "^0.3.2",
+    "vue-template-compiler": "2.6.11"
   },
   "devDependencies": {
     "eslint-config-prettier": "^4.1.0",

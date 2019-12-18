@@ -1,17 +1,17 @@
 <template lang="pug">
-  .shadow.p-5
-    h1 Create Game
+  .shadow.p-5.mt-5
+    h1.h3 Create Game
     b-form(
       @submit.prevent="onSubmit"
     )
       b-form-group(
-        label="Name"
+        label="Date"
       )
-        b-form-input(
-          v-model="form.name"
-          required
-          type="text"
-          placeholder="Enter name"
+        flat-pickr(
+          v-model="form.date"
+          :config="pickrConfig"
+          class="form-control"
+          placeholder="Select date"
         )
       b-form-group(
         label="Price"
@@ -34,19 +34,31 @@
       b-button(
         type="submit"
         variant="success"
-      ) Submit
+      ) Create
 </template>
 <script>
+import flatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
+
 export default {
   name: 'NewGame',
   data() {
     return {
       form: {
-        name: '',
+        date: '',
         price: '',
         location: ''
+      },
+      pickrConfig: {
+        wrap: true,
+        dateFormat: 'd/m/Y at H:i',
+        enableTime: true,
+        time_24hr: true
       }
     }
+  },
+  components: {
+    flatPickr
   },
   methods: {
     async onSubmit() {

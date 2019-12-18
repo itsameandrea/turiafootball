@@ -1,39 +1,40 @@
 <template lang="pug">
-  .shadow.p-5
-    h1 Create Account
-    b-form(
-      @submit.prevent="onSubmit"
-    )
-      b-form-group(
-        label="Name"
-      )
-        b-form-input(
-          v-model="form.name"
-          type="text"
-          placeholder="Enter name"
+  .d-flex.flex-column.align-items-center.h-100
+        h3.py-3 Create Account
+        b-form(
+          @submit.prevent="onSubmit"
         )
-      b-form-group(
-        label="Email"
-      )
-        b-form-input(
-          v-model="form.email"
-          type="email"
-          required
-          placeholder="Enter email"
-        )
-      b-form-group(
-        label="Password"
-      )
-        b-form-input(
-          v-model="form.password"
-          type="password"
-          required
-          placeholder="Enter password"
-        )
-      b-button(
-        type="submit"
-        variant="success"
-      ) Submit
+          b-input-group(
+            class="mb-3"
+            prepend="Name"
+          )
+            b-form-input(
+              v-model="form.name"
+              type="text"
+              placeholder="John Smith"
+            )
+          b-input-group(
+            class="mb-3"
+            prepend="Email"
+          )
+            b-form-input(
+              v-model="form.email"
+              type="email"
+              placeholder="john@smith.com"
+            )
+          b-input-group(
+            class="mb-3"
+            prepend="Password"
+          )
+            b-form-input(
+              v-model="form.password"
+              type="password"
+              placeholder="*****"
+            )
+          b-button.w-100(
+            type="submit"
+            variant="primary"
+          ) Submit
 </template>
 <script>
 export default {

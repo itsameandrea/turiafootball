@@ -1,32 +1,41 @@
 <template lang="pug">
-  div(v-if="game")
+  b-container.mt-5(v-if="game")
     checkout-modal(:visible="showCheckout" @paid="onPaid")
     b-row
-      b-col {{ game.name }}
-    b-row
-      b-col {{ game.location }}
-    b-row.d-flex.flex-column.w-100(v-if="game.players")
-      div(
-        v-for="i in maxSlots"
-        :key="i"
-      )
-        div.text-center.mb-3(v-if="i == 19") Reserves
-        .shadow.rounded-sm.my-3.p-0(
-          sm="12"
+      b-col(xs="12" md="6")
+        game-card(
+          :game="game"
         )
-          div.text-center.py-3(v-if="game.players[i - 1]") {{ i }} - {{ game.players[i -1].name }}
-          div.text-center.bg-success.text-white.py-3.cursor-pointer(
-            v-else
-            @click="onAddPlayer"
-          ) {{ i }} - Pay and sign up
+      b-col.d-flex.flex-column(
+        xs="12"
+        md="6"
+        v-if="game.players"
+      )
+        div.d-flex.flex-column.justify-content-start.mb-2(
+          v-for="i in maxSlots"
+          :key="i"
+        )
+          div.text-center.mb-3(v-if="i == 19") Reserves
+          .shadow.rounded-sm.p-0(
+            sm="12"
+          )
+            div.text-center.py-3.bg-primary(v-if="game.players[i - 1]") {{ i }} - {{ game.players[i -1].name }}
+            div.text-center.bg-light.py-3.cursor-pointer(
+              v-else
+              @click="onAddPlayer"
+            ) {{ i }} - Pay and sign up
 </template>
 <script>
 import CheckoutModal from '@/components/CheckoutModal'
+import GameCard from '@/components/GameCard'
 
 export default {
   name: 'GamePage',
   middleware: 'redirectIfNotAuthenticated',
-  components: { CheckoutModal },
+  components: {
+    CheckoutModal,
+    GameCard
+  },
   data() {
     return {
       maxPlayers: 18,

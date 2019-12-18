@@ -1,14 +1,14 @@
 <template lang="pug">
-  div
+  div.h-100
     b-row
       b-col
         logo
     b-row
       b-col
-        h1.title {{ title }}
+        h1.h2 {{ title }}
     b-row
       b-col
-        h2 {{ subtitle }}
+        h2.h3 {{ subtitle }}
     b-row
       b-col.d-flex.flex-column(v-if="user")
         b-button.mt-3(
