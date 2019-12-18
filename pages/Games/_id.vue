@@ -2,6 +2,7 @@
   b-container.mt-5(v-if="game")
     checkout-modal(
       :visible="showCheckout"
+      :game-id="$route.params.id"
       @close="showCheckout = false"
       @paid="onPaid"
     )
@@ -77,13 +78,11 @@ export default {
         this.toastError('You are already signed up for this game')
       }
     },
-    async onPaid(token) {
+    async onPaid() {
       try {
         await this.$store.dispatch('games/addPlayerToGame', {
-          gameId: this.$route.params.id,
-          token
+          gameId: this.$route.params.id
         })
-
         this.showCheckout = false
         this.toastSuccess(`You've been added to this game`)
       } catch (error) {

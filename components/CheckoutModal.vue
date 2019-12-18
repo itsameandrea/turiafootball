@@ -23,6 +23,10 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    gameId: {
+      type: String,
+      required: true
     }
   },
   components: {
@@ -58,16 +62,26 @@ export default {
       }
     },
     async onProcessPurchase() {
-      this.isLoading = true
+      try {
+        this.isLoading = true
 
-      const result = await this.stripe.createToken(this.card)
+        const result = await this.stripe.createToken(this.card)
 
-      if (result.error) {
-        this.toastError('Something went wrong with the payment...')
+        if (result.error) {
+          this.toastError('Something went wrong with the payment...')
+        }
+        // trigger firebase callable function passing the charge
+        await this.$store.dispatch('games/payGame', {
+          token: result.token.id,
+          gameId: this.gameId
+        })
+
+        this.$emit('paid')
+        this.isLoading = false
+      } catch (error) {
+        console.log(error)
+        this.toastError('Something went wrong with the payment')
       }
-      // trigger firebase callable function passing the charge
-      this.$emit('paid', result.token.id)
-      this.isLoading = false
     }
   }
 }

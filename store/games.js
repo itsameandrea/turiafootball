@@ -61,23 +61,32 @@ export const actions = {
       }
     })
   },
-  addPlayerToGame({ dispatch, state, rootGetters }, { gameId, token }) {
+  payGame({ state, rootGetters }, { gameId, token }) {
     return new Promise(async (resolve, reject) => {
       try {
         const user = rootGetters['users/currentUser']
         const game = state.games[gameId]
 
-        console.log('Calling the function...')
-
-        const processPayment = await firebase.functions().httpsCallable('processPayment')
+        const processPayment = await firebase
+          .functions()
+          .httpsCallable('processPayment')
         
-        const charge = await processPayment({
-          user,
-          game,
-          token
-        })
+          await processPayment({
+            user,
+            game,
+            token
+          })
 
-        console.log('This is the charge: ', charge)
+          resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  addPlayerToGame({ dispatch, rootGetters }, { gameId }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = rootGetters['users/currentUser']
 
         const gameRef = await this.$fireStore
           .collection('games')
