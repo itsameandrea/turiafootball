@@ -22,21 +22,29 @@
               type="password"
               placeholder="*****"
             )
-          b-button.w-100(
+          async-button.w-100(
             type="submit"
+            :is-loading="isLoading"
             variant="primary"
-          ) Submit
+          ) Login
+
 </template>
 <script>
+import AsyncButton from '@/components/AsyncButton'
+
 export default {
   name: 'LoginPage',
   middleware: 'redirectIfAuthenticated',
+  components: {
+    AsyncButton
+  },
   data() {
     return {
       form: {
         email: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
   computed: {
@@ -54,7 +62,9 @@ export default {
   methods: {
     async onSubmit() {
       try {
+        this.isLoading = true
         await this.$store.dispatch('auth/login', this.form)
+        this.isLoading = false
         this.$router.replace('/games')
         this.toastSuccess('Logged in!')
       } catch (error) {

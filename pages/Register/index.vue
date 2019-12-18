@@ -31,29 +31,41 @@
               type="password"
               placeholder="*****"
             )
-          b-button.w-100(
+          async-button.w-100(
             type="submit"
+            :is-loading="isLoading"
             variant="primary"
-          ) Submit
+          ) Create Account
 </template>
 <script>
+import AsyncButton from '@/components/AsyncButton'
+
 export default {
   name: 'RegisterPage',
   middleware: 'redirectIfAuthenticated',
+  components: {
+    AsyncButton
+  },
   data() {
     return {
       form: {
         name: '',
         email: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
 
   methods: {
     async onSubmit() {
       try {
+        this.isLoading = true
+
         await this.$store.dispatch('auth/register', this.form)
+        
+        this.loading = false
+
         this.$router.replace('/games')
         this.toastSuccess('Account created!')
       } catch (error) {

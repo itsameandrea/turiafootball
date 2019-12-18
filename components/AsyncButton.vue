@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-button(
+  b-button.d-flex.justify-content-center.align-items-center(
     :variant="variant"
     v-on="$listeners"
   )
